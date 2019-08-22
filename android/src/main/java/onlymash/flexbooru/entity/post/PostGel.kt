@@ -68,7 +68,7 @@ data class PostGel(
     val md5: String,
     @ColumnInfo(name = "creator_id")
     @Attribute(name = "creator_id")
-    val creator_id: Int,
+    val creator_id: String,
     @ColumnInfo(name = "has_children")
     @Attribute(name = "has_children")
     val has_children: Boolean,
@@ -94,6 +94,8 @@ data class PostGel(
     @Attribute(name = "preview_height")
     val preview_height: Int
 ) : PostBase() {
+    fun getCreatorId(): Int = (if (creator_id.isNullOrEmpty()) -1 else creator_id.toInt())
+
     override fun getSampleSize(): String = "$sample_width x $sample_height"
 
     override fun getLargerSize(): String = getSampleSize()
